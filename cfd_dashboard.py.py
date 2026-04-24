@@ -5,7 +5,54 @@ import numpy as np
 
 # --- UI & APP CONFIGURATION ---
 st.set_page_config(page_title="CFD Analytics Pro", page_icon="🌪️", layout="wide")
-st.title("Ploters")
+
+# --- CUSTOM CSS INJECTION (THE POLISH) ---
+st.markdown("""
+<style>
+    /* 1. Remove default Streamlit top padding */
+    .block-container {
+        padding-top: 1rem;
+        padding-bottom: 2rem;
+    }
+    
+    /* 2. Hide Streamlit watermarks for a professional look */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    
+    /* 3. Custom Centered Title Styling */
+    .custom-title {
+        text-align: center;
+        margin-top: -20px;
+        margin-bottom: 30px;
+        font-family: 'Helvetica Neue', sans-serif;
+    }
+    .custom-title h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+        /* Cool blue gradient text */
+        background: -webkit-linear-gradient(45deg, #4facfe, #00f2fe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .custom-title p {
+        font-size: 1.2rem;
+        color: #888888;
+        font-weight: 400;
+        margin-top: 5px;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# --- THE NEW CENTERED TITLE ---
+st.markdown("""
+<div class="custom-title">
+    <h1>🌪️ Professional CFD Dashboard</h1>
+    <p>Advanced Post-Processing & Diagnostics Engine</p>
+</div>
+""", unsafe_allow_html=True)
 
 # --- SIDEBAR: BOUNDARY CONDITIONS ---
 st.sidebar.header("⚙️ System Parameters")
@@ -21,7 +68,9 @@ tab1, tab2, tab3 = st.tabs(["📁 1. Visualization & Summary", "💡 2. Physics 
 # TAB 1: VISUALIZATION & DATA MAPPING
 # ==========================================
 with tab1:
-    uploaded_file = st.file_uploader("Upload Fluent CSV Export", type=['csv', 'txt', 'out'], key="file_main")
+    # Placed the uploader in a visually distinct container
+    with st.container():
+        uploaded_file = st.file_uploader("📂 Upload Fluent CSV Export", type=['csv', 'txt', 'out'], key="file_main")
     
     if uploaded_file is not None:
         try:
@@ -109,7 +158,8 @@ with tab1:
                 height=700,
                 scene=dict(xaxis_title='X (m)', yaxis_title='Y (m)', zaxis_title='Z (m)', aspectmode='auto'),
                 margin=dict(l=0, r=0, b=0, t=0),
-                paper_bgcolor="rgba(15, 15, 15, 1)"
+                paper_bgcolor="rgba(15, 15, 15, 1)",
+                font=dict(color="#aaaaaa")
             )
             
             st.plotly_chart(fig, use_container_width=True)
@@ -117,47 +167,4 @@ with tab1:
         except Exception as e:
             st.error(f"Render Error: Check column mappings. Details: {e}")
 
-# ==========================================
-# TAB 2: AUTOMATED DIAGNOSTICS
-# ==========================================
-with tab2:
-    st.header("🧠 Physics & Geometry Logic Engine")
-    if uploaded_file is not None:
-        # Pressure Diagnostics
-        if delta_p > 5000: 
-            st.error(f"🚨 **High Pressure Drop Detected ({delta_p:.0f} Pa)**")
-            st.markdown("👉 **Actionable Fix:** Consider smoothing inner geometry (fillets).")
-        else:
-            st.success(f"✅ **Pressure Drop Nominal ({delta_p:.0f} Pa)**.")
-
-        # Velocity Diagnostics
-        v_max = df['vel_mag'].max()
-        if v_max > (v_avg * 2.5) and v_avg != 0:
-            st.warning(f"⚠️ **Velocity Jetting / Recirculation Detected**")
-            st.markdown(f"👉 **Actionable Fix:** Add turning vanes if applicable.")
-        else:
-            st.success("✅ **Velocity Profile Uniform.**")
-    else:
-        st.info("Upload data in Tab 1 to run the physics engine.")
-
-# ==========================================
-# TAB 3: A/B COMPARISON ENGINE
-# ==========================================
-with tab3:
-    st.header("⚖️ Design Comparison (Delta Analysis)")
-    colA, colB = st.columns(2)
-    with colA: file_a = st.file_uploader("Case A (Baseline)", type=['csv'], key="fa")
-    with colB: file_b = st.file_uploader("Case B (Modified)", type=['csv'], key="fb")
-        
-    if file_a and file_b:
-        df_a, df_b = pd.read_csv(file_a), pd.read_csv(file_b)
-        compare_col = st.selectbox("Target Metric", options=df_a.columns)
-        if compare_col in df_b.columns:
-            avg_a, avg_b = df_a[compare_col].mean(), df_b[compare_col].mean()
-            delta = avg_b - avg_a
-            pct_change = (delta / avg_a) * 100 if avg_a != 0 else 0
-            
-            mc1, mc2, mc3 = st.columns(3)
-            mc1.metric("Case A Avg", f"{avg_a:.2f}")
-            mc2.metric("Case B Avg", f"{avg_b:.2f}")
-            mc3.metric("Change", f"{delta:.2f}", f"{pct_change:.1f}%")
+# =
