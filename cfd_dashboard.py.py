@@ -49,7 +49,7 @@ st.markdown("""
 # --- THE NEW CENTERED TITLE ---
 st.markdown("""
 <div class="custom-title">
-    <h1>🌪️ Professional CFD Dashboard</h1>
+    <h1>CFD Dashboard</h1>
     <p>Advanced Post-Processing & Diagnostics Engine</p>
 </div>
 """, unsafe_allow_html=True)
