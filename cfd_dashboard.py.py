@@ -4,7 +4,7 @@ import plotly.graph_objects as go
 import numpy as np
 
 # --- UI & APP CONFIGURATION ---
-st.set_page_config(page_title="CFD Analytics Pro", page_icon="🌪️", layout="wide")
+st.set_page_config(page_title="Plots", page_icon="🌪️", layout="wide")
 
 # --- CUSTOM CSS INJECTION (THE POLISH) ---
 st.markdown("""
