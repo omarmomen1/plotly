@@ -5,7 +5,7 @@ import numpy as np
 
 # --- UI & APP CONFIGURATION ---
 st.set_page_config(page_title="CFD Analytics Pro", page_icon="🌪️", layout="wide")
-st.title("🌪️ Professional CFD Analysis Engine")
+st.title("Ploters")
 
 # --- SIDEBAR: BOUNDARY CONDITIONS ---
 st.sidebar.header("⚙️ System Parameters")
