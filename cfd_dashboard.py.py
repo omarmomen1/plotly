@@ -174,7 +174,7 @@ with tab1:
         
     else:
         # 1. READ THE UPLOADED CSV DATA
-        df = .pd.read_csv(uploaded_file)
+        df = pd.read_csv(uploaded_file)
         
         st.success(f"File '{uploaded_file.name}' ingested successfully. Running diagnostic tensors...")
         
