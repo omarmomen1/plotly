@@ -200,14 +200,14 @@ with tab1:
         with col_z: z_val = st.selectbox("Z-Axis", cols, index=min(2, len(cols)-1))
         with col_color: c_val = st.selectbox("Color Gradient (e.g. Velocity/Pressure)", cols, index=min(3, len(cols)-1))
 
-        # Generate the live 3D Scatter Plot
+       # Generate the live 3D Scatter Plot
         fig_real = go.Figure(data=[go.Scatter3d(
             x=df[x_val], y=df[y_val], z=df[z_val],
             mode='markers',
             marker=dict(
                 size=3,
                 color=df[c_val],
-                colorscale='Electric', # Neon Cyber Theme
+                colorscale='Jet', # <--- CHANGED TO ANSYS DEFAULT
                 opacity=0.8,
                 colorbar=dict(title=dict(text=c_val, font=dict(color="#00f3ff")), tickfont=dict(color='#94a3b8'))
             )
