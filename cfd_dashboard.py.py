@@ -147,18 +147,18 @@ with st.sidebar:
 tab1, tab2, tab3 = st.tabs(["🚀 Visualization & Summary", "🧠 Physics Insights", "⚖️ Compare Designs"])
 
 # --- TAB 1: VISUALIZATION & SUMMARY ---
+# --- TAB 1: VISUALIZATION & SUMMARY ---
 with tab1:
     if uploaded_file is None:
         # Placeholder Startup-Vibe Graphic when no file is uploaded
         st.markdown("<h4 style='color: #94a3b8; text-align: center; margin-top: 50px;'>Awaiting Simulation Data...</h4>", unsafe_allow_html=True)
         
-        # Generating a beautiful placeholder 3D Surface Plot
         x = np.linspace(-5, 5, 50)
         y = np.linspace(-5, 5, 50)
         xGrid, yGrid = np.meshgrid(x, y)
         z = np.sin(np.sqrt(xGrid**2 + yGrid**2))
         
-        fig = go.Figure(data=[go.Surface(z=z, x=x, y=y, colorscale='Tealgrn', opacity=0.8)])
+        fig = go.Figure(data=[go.Surface(z=z, x=x, y=y, colorscale='Teal', opacity=0.8)])
         fig.update_layout(
             title="Simulated Velocity Profile Tensor (Demo Mode)",
             title_font=dict(color='#00f3ff'),
@@ -173,15 +173,61 @@ with tab1:
         st.plotly_chart(fig, use_container_width=True)
         
     else:
-        # [Insert your actual Pandas/CSV processing logic here]
-        st.success("File ingested successfully. Running diagnostic tensors...")
+        # 1. READ THE UPLOADED CSV DATA
+        df = pd.pd.read_csv(uploaded_file)
         
-        # Example of Cyber Metrics
+        st.success(f"File '{uploaded_file.name}' ingested successfully. Running diagnostic tensors...")
+        
+        # 2. DYNAMIC CYBER METRICS
         colA, colB, colC = st.columns(3)
-        with colA: st.markdown("<div class='cyber-metric'><div class='metric-label'>Max Velocity</div><div class='metric-value'>14.2 m/s</div></div>", unsafe_allow_html=True)
-        with colB: st.markdown("<div class='cyber-metric'><div class='metric-label'>Pressure Drop</div><div class='metric-value'>105 kPa</div></div>", unsafe_allow_html=True)
-        with colC: st.markdown("<div class='cyber-metric'><div class='metric-label'>Turbulence Intensity</div><div class='metric-value'>4.2 %</div></div>", unsafe_allow_html=True)
+        with colA: st.markdown(f"<div class='cyber-metric'><div class='metric-label'>Data Rows Captured</div><div class='metric-value'>{len(df):,}</div></div>", unsafe_allow_html=True)
+        with colB: st.markdown(f"<div class='cyber-metric'><div class='metric-label'>Variables Detected</div><div class='metric-value'>{len(df.columns)}</div></div>", unsafe_allow_html=True)
+        with colC: st.markdown("<div class='cyber-metric'><div class='metric-label'>System Status</div><div class='metric-value'>OPTIMAL</div></div>", unsafe_allow_html=True)
 
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # 3. DYNAMIC 3D DATA PROJECTOR
+        st.markdown("<h3 style='color: #ffffff;'>🌌 3D Spatial Projection</h3>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #94a3b8;'>Map your Fluent CSV columns to the visualization engine.</p>", unsafe_allow_html=True)
+
+        # Create dropdowns so the user can select which columns to plot
+        col_x, col_y, col_z, col_color = st.columns(4)
+        cols = df.columns.tolist()
+        
+        # Safely assign default dropdown indices based on how many columns exist
+        with col_x: x_val = st.selectbox("X-Axis", cols, index=0)
+        with col_y: y_val = st.selectbox("Y-Axis", cols, index=min(1, len(cols)-1))
+        with col_z: z_val = st.selectbox("Z-Axis", cols, index=min(2, len(cols)-1))
+        with col_color: c_val = st.selectbox("Color Gradient (e.g. Velocity/Pressure)", cols, index=min(3, len(cols)-1))
+
+        # Generate the live 3D Scatter Plot
+        fig_real = go.Figure(data=[go.Scatter3d(
+            x=df[x_val], y=df[y_val], z=df[z_val],
+            mode='markers',
+            marker=dict(
+                size=3,
+                color=df[c_val],
+                colorscale='Electric', # Neon Cyber Theme
+                opacity=0.8,
+                colorbar=dict(title=dict(text=c_val, font=dict(color="#00f3ff")), tickfont=dict(color='#94a3b8'))
+            )
+        )])
+
+        fig_real.update_layout(
+            paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
+            font=dict(color="#94a3b8"),
+            scene=dict(
+                xaxis=dict(title=x_val, gridcolor='#1e293b', backgroundcolor='rgba(0,0,0,0)'),
+                yaxis=dict(title=y_val, gridcolor='#1e293b', backgroundcolor='rgba(0,0,0,0)'),
+                zaxis=dict(title=z_val, gridcolor='#1e293b', backgroundcolor='rgba(0,0,0,0)')
+            ),
+            height=600, margin=dict(l=0, r=0, b=0, t=0)
+        )
+        st.plotly_chart(fig_real, use_container_width=True)
+
+        # 4. SHOW THE RAW DATA MATRIX
+        st.markdown("<h3 style='color: #ffffff;'>📄 Raw Tensor Matrix</h3>", unsafe_allow_html=True)
+        st.dataframe(df.head(100), use_container_width=True) # Display first 100 rows to keep app fast
 # --- TAB 2: PHYSICS INSIGHTS ---
 with tab2:
     st.markdown("### Deep Physics Analytics")
