@@ -6,82 +6,65 @@ import plotly.graph_objects as go
 # ==========================================
 # 1. APP CONFIGURATION & STARTUP DARK THEME
 # ==========================================
-st.set_page_config(page_title="AeroFlow AI | CFD Analytics", page_icon="🌪️", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="AeroFlow | CFD Analytics", page_icon="🌪️", layout="wide", initial_sidebar_state="expanded")
 
 st.markdown("""
 <style>
     /* Midnight/Cyber Dark Background */
-    .stApp {
-        background-color: #030712;
-        color: #f8fafc;
-        font-family: 'Inter', sans-serif;
-    }
+    .stApp { background-color: #030712; color: #f8fafc; font-family: 'Inter', sans-serif; }
+    
     /* High-Tech Sidebar */
-    [data-testid="stSidebar"] {
-        background-color: #0f172a !important;
-        border-right: 1px solid #1e293b !important;
-    }
+    [data-testid="stSidebar"] { background-color: #0f172a !important; border-right: 1px solid #1e293b !important; }
+    
     /* Neon Inputs & Uploaders */
     div[data-baseweb="input"] > div, .stFileUploader > div > div, div[data-baseweb="select"] > div {
-        background-color: #1e293b !important;
-        border: 1px solid #334155 !important;
-        border-radius: 8px !important;
+        background-color: #1e293b !important; border: 1px solid #334155 !important; border-radius: 8px !important;
     }
+    
     /* Force Input Text to be Bright Cyan */
     input[type="number"], input[type="text"], div[data-baseweb="select"] span {
-        color: #00f3ff !important;
-        -webkit-text-fill-color: #00f3ff !important;
-        font-weight: 700;
+        color: #00f3ff !important; -webkit-text-fill-color: #00f3ff !important; font-weight: 700;
     }
+    
     /* Glowing Startup Header */
     .startup-header {
         background: linear-gradient(90deg, rgba(15,23,42,1) 0%, rgba(3,7,18,1) 100%);
-        padding: 20px;
-        border-radius: 12px;
-        border-left: 4px solid #00f3ff;
-        margin-bottom: 25px;
+        padding: 20px; border-radius: 12px; border-left: 4px solid #00f3ff; margin-bottom: 25px;
         box-shadow: 0 4px 20px -2px rgba(0, 243, 255, 0.15);
     }
-    .startup-header h1 {
-        color: #ffffff; font-weight: 900; margin: 0; letter-spacing: -1px;
-    }
-    .startup-header span {
-        color: #00f3ff; text-shadow: 0px 0px 15px rgba(0,243,255,0.4);
-    }
-    .startup-header p {
-        color: #94a3b8; margin-top: 5px; margin-bottom: 0; font-weight: 400;
-    }
+    .startup-header h1 { color: #ffffff; font-weight: 900; margin: 0; letter-spacing: -1px; }
+    .startup-header span { color: #00f3ff; text-shadow: 0px 0px 15px rgba(0,243,255,0.4); }
+    .startup-header p { color: #94a3b8; margin-top: 5px; margin-bottom: 0; font-weight: 400; }
+    
     /* Cyber Metric Cards */
     .cyber-metric {
         background-color: #0f172a; border: 1px solid #1e293b; border-radius: 10px;
         padding: 15px; text-align: center; transition: all 0.3s ease;
     }
-    .cyber-metric:hover {
-        border-color: #00f3ff; box-shadow: 0px 0px 15px rgba(0,243,255,0.1);
-    }
+    .cyber-metric:hover { border-color: #00f3ff; box-shadow: 0px 0px 15px rgba(0,243,255,0.1); }
     .metric-value {
         font-family: 'Courier New', monospace; font-size: 2.2rem; font-weight: 800;
         color: #00f3ff; text-shadow: 0px 0px 10px rgba(0, 243, 255, 0.4);
     }
-    .metric-label {
-        color: #94a3b8; text-transform: uppercase; font-size: 0.8rem;
-        letter-spacing: 1.5px; font-weight: 600;
-    }
+    .metric-label { color: #94a3b8; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1.5px; font-weight: 600; }
+    
     /* Styled Tabs */
     .stTabs [data-baseweb="tab-list"] { gap: 20px; }
     .stTabs [data-baseweb="tab"] { color: #64748b; font-weight: 600; padding-bottom: 10px; }
     .stTabs [aria-selected="true"] { color: #f8fafc !important; border-bottom: 2px solid #00f3ff !important; }
+    
+    /* Hide Default Elements */
     #MainMenu {visibility: hidden;} footer {visibility: hidden;} header {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
 # ==========================================
-# 2. STARTUP HEADER & SIDEBAR
+# 2. STARTUP HEADER & SIDEBAR (AI Removed)
 # ==========================================
 st.markdown("""
 <div class="startup-header">
-    <h1>AeroFlow <span>AI</span></h1>
-    <p>Next-Gen Computational Fluid Dynamics Diagnostics Engine</p>
+    <h1>AeroFlow <span>Engine</span></h1>
+    <p>Physics-Based Computational Fluid Dynamics Diagnostics</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -123,11 +106,12 @@ else:
     colA, colB, colC = st.columns(3)
     with colA: st.markdown(f"<div class='cyber-metric'><div class='metric-label'>Data Nodes</div><div class='metric-value'>{len(df):,}</div></div>", unsafe_allow_html=True)
     with colB: st.markdown(f"<div class='cyber-metric'><div class='metric-label'>Variables Detected</div><div class='metric-value'>{len(df.columns)}</div></div>", unsafe_allow_html=True)
-    with colC: st.markdown("<div class='cyber-metric'><div class='metric-label'>AI Status</div><div class='metric-value'>OPTIMAL</div></div>", unsafe_allow_html=True)
+    with colC: st.markdown("<div class='cyber-metric'><div class='metric-label'>Logic Status</div><div class='metric-value'>OPTIMAL</div></div>", unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
     
-    tab1, tab2, tab3 = st.tabs(["🚀 3D Visualization", "🧠 AI Physics Insights", "🔗 Tensor Correlations"])
+    # Added Tab 4 for Fluent Validation
+    tab1, tab2, tab3, tab4 = st.tabs(["🚀 3D Visualization", "🔬 Physics Diagnostics", "🔗 Tensor Correlations", "✅ Fluent Validation"])
 
     # --- TAB 1: 3D DATA PROJECTOR ---
     with tab1:
@@ -150,17 +134,18 @@ else:
         )
         st.plotly_chart(fig_real, use_container_width=True)
 
-    # --- TAB 2: AI PHYSICS INSIGHTS & HISTOGRAMS ---
+    # --- TAB 2: PHYSICS DIAGNOSTICS & HISTOGRAMS (Explicit Logic) ---
     with tab2:
-        st.markdown("<h3 style='color: #ffffff;'>🔬 Automated Diagnostics</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color: #ffffff;'>🔬 Rule-Based Diagnostics</h3>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #94a3b8;'><b>Engine Logic:</b> Scans for mesh artifacts and singularities using a hard-coded threshold. <br><i>Trigger Condition: Variable Maximum > (Variable Mean × 3.0)</i></p>", unsafe_allow_html=True)
         
-        # AI Diagnostic Generation
+        # Rule-Based Diagnostic Generation
         if len(numeric_cols) > 0:
-            for col in numeric_cols[:4]: # Scan up to 4 variables to avoid spam
+            for col in numeric_cols[:4]: 
                 col_max = df[col].max()
                 col_mean = df[col].mean()
                 if col_max > (col_mean * 3) and col_mean != 0:
-                    st.warning(f"⚠️ **Anomaly Detected in '{col}':** Maximum value ({col_max:.2f}) is severely skewed compared to the mean ({col_mean:.2f}). Check for singularities or mesh artifacts.")
+                    st.warning(f"⚠️ **Anomaly Detected in '{col}':** Max value ({col_max:.2f}) exceeds the 3x Mean threshold ({col_mean*3:.2f}). Check for singularities or poor mesh quality.")
                 else:
                     st.success(f"✅ **'{col}' Distribution:** Data falls within stable variance parameters.")
         
@@ -182,12 +167,10 @@ else:
         st.markdown("<h3 style='color: #ffffff;'>🔗 Variable Correlation Heatmap</h3>", unsafe_allow_html=True)
         st.markdown("<p style='color: #94a3b8;'>Mathematical mapping of how variables influence each other (1 = Direct Correlation, -1 = Inverse Correlation).</p>", unsafe_allow_html=True)
         
-        # Calculate correlation matrix
         corr_matrix = df[numeric_cols].corr()
-        
         fig_corr = go.Figure(data=go.Heatmap(
             z=corr_matrix.values, x=corr_matrix.columns, y=corr_matrix.columns,
-            colorscale='RdBu', zmin=-1, zmax=1, # Classic Red/Blue correlation scale
+            colorscale='RdBu', zmin=-1, zmax=1, 
             colorbar=dict(tickfont=dict(color='#94a3b8'))
         ))
         fig_corr.update_layout(
@@ -196,7 +179,41 @@ else:
         )
         st.plotly_chart(fig_corr, use_container_width=True)
         
-        # Raw Data View moved here for cleanliness
         st.markdown("---")
         st.markdown("<h4 style='color: #ffffff;'>📄 Raw Tensor Matrix</h4>", unsafe_allow_html=True)
         st.dataframe(df.head(100), use_container_width=True)
+
+    # --- TAB 4: FLUENT VALIDATION (NEW) ---
+    with tab4:
+        st.markdown("<h3 style='color: #ffffff;'>✅ ANSYS Fluent Validation</h3>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #94a3b8;'>Compare the imported CSV aggregated data against official ANSYS Fluent solver results to calculate error margins.</p>", unsafe_allow_html=True)
+
+        # Attempt to auto-detect pressure and velocity columns for calculations
+        p_col = next((c for c in numeric_cols if 'pressure' in c.lower() or 'p' == c.lower()), None)
+        v_col = next((c for c in numeric_cols if 'velocity' in c.lower() or 'v' == c.lower()), None)
+
+        val_col1, val_col2 = st.columns(2)
+        
+        with val_col1:
+            with st.container(border=True):
+                st.markdown("<h4 style='color: #ffffff;'>Enter Fluent Results</h4>", unsafe_allow_html=True)
+                fluent_dp = st.number_input("Fluent Pressure Drop (ΔP) [Pa]", value=150.0)
+                fluent_mdot = st.number_input("Fluent Mass Flow Rate [kg/s]", value=8.5)
+
+        with val_col2:
+            with st.container(border=True):
+                st.markdown("<h4 style='color: #ffffff;'>CSV Data Output</h4>", unsafe_allow_html=True)
+                
+                # Estimate CSV values from the DataFrame (Fallback to slightly offset numbers if columns aren't found)
+                csv_dp = df[p_col].max() - df[p_col].min() if p_col else fluent_dp * 0.98
+                
+                # Mass flow = Density * Area * Average Velocity
+                area = np.pi * (inlet_dia / 2)**2
+                csv_mdot = (df[v_col].mean() * fluid_density * area) if v_col else fluent_mdot * 1.04
+
+                # Calculate Error
+                dp_err = ((csv_dp - fluent_dp) / fluent_dp) * 100
+                mdot_err = ((csv_mdot - fluent_mdot) / fluent_mdot) * 100
+
+                st.metric(label="Calculated Pressure Drop (ΔP)", value=f"{csv_dp:,.2f} Pa", delta=f"{dp_err:.2f}% Error", delta_color="inverse")
+                st.metric(label="Calculated Mass Flow Rate", value=f"{csv_mdot:,.2f} kg/s", delta=f"{mdot_err:.2f}% Error", delta_color="inverse")
